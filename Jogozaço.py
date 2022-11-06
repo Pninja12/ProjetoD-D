@@ -2,6 +2,7 @@ import os
 import time
 
 
+#Defenição dos personagens
 p1 = {
   "name": "Warrior",
   "hp": 32,
@@ -38,12 +39,14 @@ e2 = {
   "init": 2
 }
 
+
+#Início do jogo
 print("       Welcome Player")
 
 print("Be ready to defeat your enemies")
 
-time.sleep(5)
-os.system('cls')
+time.sleep(5)#Esperar 5 sgundos
+os.system('cls')#Limpar o ecrã
 
 print("Your characters:")
 print("|",p1["name"], "|", sep='')
@@ -53,3 +56,11 @@ print("|Health:",p1["hp"],"\n","|Mana:",p1["mp"],"\n","|Armor:",p1["ap"],"\n","|
 print("|",p2["name"], "|", sep='')
 print("---------")
 print("|Health:",p2["hp"],"\n","|Mana:",p2["mp"],"\n","|Armor:",p2["ap"],"\n","|Damage:",p2["wp"],"\n", sep='')
+time.sleep(5)#Esperar 5 sgundos
+os.system('cls')#Limpar o ecrã
+
+
+#Começo da batalha
+over = 0
+while over < 1:
+  print()
