@@ -63,4 +63,4 @@ os.system('cls')#Limpar o ecrã
 #Começo da batalha
 over = 0
 while over < 1:
-  print()
+  print("olá")
