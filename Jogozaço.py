@@ -88,13 +88,23 @@ def baralho():
   e4init = e4["init"] + x
   x = random.randrange(1,21)
 
+def apagar_ecra(): #Código original do meu colega Ricardo 
+ 
+    #O OS do windows é 'nt'
+    if os.name == 'nt':
+        #O 'cls' é o código para apagar o terminal no Windows
+        os.system('cls')
+    else:
+        #O 'clear' é o código para apagar o terminal no Mac e no linux
+        os.system('clear')
+
 #Início do jogo
 print("       Welcome Player")
 
 print("Be ready to defeat your enemies")
 
 time.sleep(5)#Esperar 5 sgundos
-os.system('clear')#Limpar o ecrã
+apagar_ecra()#Limpa o ecrã
 
 print("Os teus personagens:")
 print("|",p1["name"], "|", sep='')
@@ -105,7 +115,7 @@ print("|",p2["name"], "|", sep='')
 print("---------")
 print("|Vida:",p2["hp"],"\n","|Energia+:",p2["mp"],"\n","|Armadura:",p2["ap"],"\n","|Ataque:",p2["wp"],"\n", sep='')
 time.sleep(5)#Esperar 5 sgundos
-os.system('clear')#Limpar o ecrã
+apagar_ecra()#Limpa o ecrã
 
 
 
@@ -114,9 +124,9 @@ os.system('clear')#Limpar o ecrã
 
 while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp"] > 0 or e4["hp"] > 0):
   baralho()
-  for i in range(reversed(26)):
+  for i in range(reversed(40)):
     
-    if e4["hp"]>0 and e4init == i:
+    if e4["hp"]>0 and e4init == i and (p1["hp"] > 0 or p2["hp"] > 0):
         if p1["hp"] > 0 :
           dano=e1["wp"] - p1["ap"]
           if dano > 0:
@@ -127,7 +137,7 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
             p2["hp"]=p2["hp"] - dano 
 
     
-    if p2["hp"]>0 and p2init == i:  
+    if p2["hp"]>0 and p2init == i and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp"] > 0 or e4["hp"] > 0):  
         print("É o turno do Priest ")
         if p2["mp"]>0:
           while esco == 0:
@@ -260,7 +270,7 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
           
     
 
-    if p1["hp"]>0 and p1init == i: 
+    if p1["hp"]>0 and p1init == i and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp"] > 0 or e4["hp"] > 0): 
         print("É o turno do Warrior ")
         if p1["mp"]>0:
           while esco == 0:
@@ -381,7 +391,7 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
                   e4["hp"]=e4["hp"] - dano
     
 
-    if e1["hp"]>0 and e1init == i:
+    if e1["hp"]>0 and e1init == i and (p1["hp"] > 0 or p2["hp"] > 0):
         if p1["hp"] > 0 :
           dano=e1["wp"] - p1["ap"]
           if dano > 0:
@@ -392,7 +402,7 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
             p2["hp"]=p2["hp"] - dano 
       
 
-    if e2["hp"]>0 and e2init == i:
+    if e2["hp"]>0 and e2init == i and (p1["hp"] > 0 or p2["hp"] > 0):
         if p1["hp"] > 0 :
           dano=e2["wp"] - p1["ap"]
           if dano > 0:
@@ -403,16 +413,13 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
             p2["hp"]=p2["hp"] - dano
     
     
-    if e4["hp"]>0 and e4init == i:
+    if e4["hp"]>0 and e4init == i and (p1["hp"] > 0 or p2["hp"] > 0):
       if e4["mp"] > 0:
+        dado = random.randrange(1,7)
         if p1["hp"] > 0 :
-          dano=e2["wp"] - p1["ap"]
-          if dano > 0:
-            p1["hp"]=p1["hp"] - dano
+          p1["hp"]=p1["hp"] - (dado*2)
         elif p2["hp"] > 0 :
           dano=e2["wp"] - p2["ap"]
-          if dano > 0:
-            p2["hp"]=p2["hp"] - dano
       else:
         if p1["hp"] > 0 :
           dano=e2["wp"] - p1["ap"]
@@ -423,7 +430,7 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
           if dano > 0:
             p2["hp"]=p2["hp"] - dano  
   
-    os.system('clear')
+    apagar_ecra()#Limpa o ecrã
     print(x)
     print("Your characters:")
     print("|",p1["name"], "|", sep='')
