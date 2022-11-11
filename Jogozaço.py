@@ -8,7 +8,7 @@ p1 = {
   "name": "Warrior",
   "hp": 32,
   "mp": 5,
-  "ap": 2,
+  "ap": 1,
   "wp": 5,
   "init": 2
 }
@@ -18,7 +18,7 @@ p2 = {
   "hp": 20,
   "mp": 25,
   "ap": 0,
-  "wp": 2,
+  "wp": 3,
   "init": 6
 }
 
@@ -71,9 +71,44 @@ e1init = 0
 e2init = 0
 e3init = 0
 e4init = 0
+turn = 1
+
+def apagar_ecra(): #Código original do meu colega Ricardo 
+ 
+    #O OS do windows é 'nt'
+    if os.name == 'nt':
+        #O 'cls' é o código para apagar o terminal no Windows
+        os.system('cls')
+    else:
+        #O 'clear' é o código para apagar o terminal no Mac e no linux
+        os.system('clear')
+
+apagar_ecra()#Limpa o ecrã
+#Início do jogo
+print("       Bem vindo jogador")
+
+print("Prepara te para derrotares os teus inimigos!")
+
+time.sleep(5)#Esperar 5 sgundos
+apagar_ecra()#Limpa o ecrã
+
+print("Os teus personagens:")
+print("|",p1["name"], "|", sep='')
+print("---------")
+print("|Vida:",p1["hp"],"\n","|Energia:",p1["mp"],"\n","|Armadura:",p1["ap"],"\n","|Ataque:",p1["wp"],"\n", sep='')
+
+print("|",p2["name"], "|", sep='')
+print("---------")
+print("|Vida:",p2["hp"],"\n","|Energia:",p2["mp"],"\n","|Armadura:",p2["ap"],"\n","|Ataque:",p2["wp"],"\n", sep='')
+time.sleep(5)#Esperar 5 sgundos
+apagar_ecra()#Limpa o ecrã
 
 
-def baralho():
+
+
+#Começo da batalha
+
+while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp"] > 0 or e4["hp"] > 0):
   x = random.randrange(1,21)
   p1init = p1["init"] + x
   x = random.randrange(1,21)
@@ -86,55 +121,20 @@ def baralho():
   e3init = e3["init"] + x
   x = random.randrange(1,21)
   e4init = e4["init"] + x
-  x = random.randrange(1,21)
-
-def apagar_ecra(): #Código original do meu colega Ricardo 
- 
-    #O OS do windows é 'nt'
-    if os.name == 'nt':
-        #O 'cls' é o código para apagar o terminal no Windows
-        os.system('cls')
-    else:
-        #O 'clear' é o código para apagar o terminal no Mac e no linux
-        os.system('clear')
-
-#Início do jogo
-print("       Welcome Player")
-
-print("Be ready to defeat your enemies")
-
-time.sleep(5)#Esperar 5 sgundos
-apagar_ecra()#Limpa o ecrã
-
-print("Os teus personagens:")
-print("|",p1["name"], "|", sep='')
-print("---------")
-print("|Vida:",p1["hp"],"\n","|Energia:",p1["mp"],"\n","|Armadura:",p1["ap"],"\n","|Ataque:",p1["wp"],"\n", sep='')
-
-print("|",p2["name"], "|", sep='')
-print("---------")
-print("|Vida:",p2["hp"],"\n","|Energia+:",p2["mp"],"\n","|Armadura:",p2["ap"],"\n","|Ataque:",p2["wp"],"\n", sep='')
-time.sleep(5)#Esperar 5 sgundos
-apagar_ecra()#Limpa o ecrã
-
-
-
-
-#Começo da batalha
-
-while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp"] > 0 or e4["hp"] > 0):
-  baralho()
-  for i in range(reversed(40)):
+  
+  for i in range(40,-1,-1):
+    print(f"{turn}º turno")
     
     if e4["hp"]>0 and e4init == i and (p1["hp"] > 0 or p2["hp"] > 0):
         if p1["hp"] > 0 :
-          dano=e1["wp"] - p1["ap"]
+          dano=e4["wp"] - p1["ap"]
           if dano > 0:
             p1["hp"]=p1["hp"] - dano
         elif p2["hp"] > 0 :
-          dano=e1["wp"] - p2["ap"]
+          dano=e4["wp"] - p2["ap"]
           if dano > 0:
             p2["hp"]=p2["hp"] - dano 
+
 
     
     if p2["hp"]>0 and p2init == i and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp"] > 0 or e4["hp"] > 0):  
@@ -374,19 +374,19 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
                   print("|Health:",e4["hp"],"\n","|Mana:",e4["mp"],"\n","|Armor:",e4["ap"],"\n","|Damage:",e4["wp"],"\n", sep='')
           inimigo=int(input("Qual Inimigo quer atacar: "))
           if inimigo == 1:
-                dano=p2["wp"] - e1["ap"]
+                dano=p1["wp"] - e1["ap"]
                 if dano > 0:
                   e1["hp"]=e1["hp"] - dano
           elif inimigo == 2:
-                dano=p2["wp"] - e2["ap"]
+                dano=p1["wp"] - e2["ap"]
                 if dano > 0:
                   e2["hp"]=e2["hp"] - dano
           elif inimigo == 3:
-                dano=p2["wp"] - e3["ap"]
+                dano=p1["wp"] - e3["ap"]
                 if dano > 0:
                   e3["hp"]=e3["hp"] - dano
           elif inimigo == 4:
-                dano=p2["wp"] - e4["ap"]
+                dano=p1["wp"] - e4["ap"]
                 if dano > 0:
                   e4["hp"]=e4["hp"] - dano
     
@@ -413,25 +413,26 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
             p2["hp"]=p2["hp"] - dano
     
     
-    if e4["hp"]>0 and e4init == i and (p1["hp"] > 0 or p2["hp"] > 0):
-      if e4["mp"] > 0:
-        dado = random.randrange(1,7)
+    if e3["hp"]>0 and e4init == i and (p1["hp"] > 0 or p2["hp"] > 0):
+      if e3["mp"] > 0:
+        dado = random.randrange(1,5)
+        e3["mp"] = e3["mp"] - 5
         if p1["hp"] > 0 :
           p1["hp"]=p1["hp"] - (dado*2)
         elif p2["hp"] > 0 :
-          dano=e2["wp"] - p2["ap"]
+          p2["hp"]=p2["hp"] - (dado*2)
       else:
         if p1["hp"] > 0 :
-          dano=e2["wp"] - p1["ap"]
+          dano=e3["wp"] - p1["ap"]
           if dano > 0:
             p1["hp"]=p1["hp"] - dano
         elif p2["hp"] > 0 :
-          dano=e2["wp"] - p2["ap"]
+          dano=e3["wp"] - p2["ap"]
           if dano > 0:
             p2["hp"]=p2["hp"] - dano  
-  
-    apagar_ecra()#Limpa o ecrã
-    print(x)
+
+    print()
+    print()
     print("Your characters:")
     print("|",p1["name"], "|", sep='')
     print("---------")
@@ -440,3 +441,18 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
     print("|",p2["name"], "|", sep='')
     print("---------")
     print("|Health:",p2["hp"],"\n","|Mana:",p2["mp"],"\n","|Armor:",p2["ap"],"\n","|Damage:",p2["wp"],"\n", sep='')
+    time.sleep(0.9)
+    apagar_ecra()#Limpa o ecrã
+  turn = turn + 1
+
+
+#Fim do jogo/vencedor
+
+if e1["hp"] > 0 and e2["hp"] > 0 and e3["hp"] > 0 and e4["hp"] > 0:
+  apagar_ecra()#Limpa o ecrã
+  print("O jogador ganhou!  :)")
+else:
+  apagar_ecra()#Limpa o ecrã
+  print("O jogador perdeu!  :(")
+print(p1)
+print(p2)
