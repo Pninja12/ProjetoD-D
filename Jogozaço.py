@@ -9,7 +9,7 @@ p1 = {
   "hp": 32,
   "mp": 5,
   "ap": 1,
-  "wp": 50,
+  "wp": 5,
   "init": 2
 }
 
@@ -117,8 +117,6 @@ def chamar_player():
     print("---------")  #{Dá print dos stats do priest
     print("|Vida:",p2["hp"],"\n","|Energia:",p2["mp"],"\n","|Armadura:",p2["ap"],"\n","|Ataque:",p2["wp"],"\n", sep='')
 
-def ataque_pr()
-
 
 
 apagar_ecra()#Limpa o ecrã
@@ -171,10 +169,14 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
           dano=e4["wp"] - p1["ap"]
           if dano > 0:
             p1["hp"]=p1["hp"] - dano
+            print("Goblin deu",dano,"de dano ao warrior")
+            time.sleep(3)#Esperar 5 sgundos
         elif p2["hp"] > 0 :
           dano=e4["wp"] - p2["ap"]
           if dano > 0:
             p2["hp"]=p2["hp"] - dano 
+            print("Goblin deu",dano,"de dano ao priest")
+            time.sleep(3)#Esperar 5 sgundos
 
 
     #Turno do Priest
@@ -196,14 +198,18 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
                 chamar_inimigo()
                 while (True):
                   inimigo=int(input("Qual Inimigo quer atacar: "))
-                  if inimigo == 1:
+                  if inimigo == 1 and e1["hp"] > 0:
                     e1["hp"]=e1["hp"] - (dado*2)
-                  elif inimigo == 2:
+                    break
+                  elif inimigo == 2 and e2["hp"] > 0:
                     e2["hp"]=e2["hp"] - (dado*2)
-                  elif inimigo == 3:
+                    break
+                  elif inimigo == 3 and e3["hp"] > 0:
                     e3["hp"]=e3["hp"] - (dado*2)
-                  elif inimigo == 4:
+                    break
+                  elif inimigo == 4 and e4["hp"] > 0:
                     e4["hp"]=e4["hp"] - (dado*2)
+                    break
                 p2["mp"]=p2["mp"]-5
                 esco=1
               else:
@@ -214,22 +220,26 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
               chamar_inimigo()
               while (True):
                 inimigo=int(input("Qual Inimigo quer atacar: "))
-                if inimigo == 1:
+                if inimigo == 1 and e1["hp"] > 0:
                   dano=p2["wp"] - e1["ap"]
                   if dano > 0:
                     e1["hp"]=e1["hp"] - dano
-                elif inimigo == 2:
+                  break
+                elif inimigo == 2 and e2["hp"] > 0:
                   dano=p2["wp"] - e2["ap"]
                   if dano > 0:
                     e2["hp"]=e2["hp"] - dano
-                elif inimigo == 3:
+                  break
+                elif inimigo == 3 and e3["hp"] > 0:
                   dano=p2["wp"] - e3["ap"]
                   if dano > 0:
                     e3["hp"]=e3["hp"] - dano
-                elif inimigo == 4:
+                  break
+                elif inimigo == 4 and e4["hp"]> 0:
                   dano=p2["wp"] - e4["ap"]
                   if dano > 0:
                     e4["hp"]=e4["hp"] - dano
+                  break
               esco=1
             else:
               print("Introduza novamente. ")
@@ -239,22 +249,26 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
           chamar_inimigo()
           while (True):
             inimigo=int(input("Qual Inimigo quer atacar: "))
-            if inimigo == 1:
+            if inimigo == 1 and e1["hp"] > 0:
                   dano=p2["wp"] - e1["ap"]
                   if dano > 0:
                     e1["hp"]=e1["hp"] - dano
-            elif inimigo == 2:
+                  break
+            elif inimigo == 2 and e2["hp"] > 0:
                   dano=p2["wp"] - e2["ap"]
                   if dano > 0:
                     e2["hp"]=e2["hp"] - dano
-            elif inimigo == 3:
+                  break
+            elif inimigo == 3 and e3["hp"] > 0:
                   dano=p2["wp"] - e3["ap"]
                   if dano > 0:
                     e3["hp"]=e3["hp"] - dano
-            elif inimigo == 4:
+                  break
+            elif inimigo == 4 and e4["hp"] > 0:
                   dano=p2["wp"] - e4["ap"]
                   if dano > 0:
                     e4["hp"]=e4["hp"] - dano
+                  break
           
     
 
@@ -269,35 +283,43 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
               chamar_inimigo()
               while (True):
                 inimigo=int(input("Qual Inimigo quer atacar: "))
-                if inimigo == 1:
+                if inimigo == 1 and e1["hp"] > 0:
                   e1["hp"]=e1["hp"] - (p1["wp"] + dado)
-                elif inimigo == 2:
+                  break
+                elif inimigo == 2 and e2["hp"] > 0:
                   e2["hp"]=e2["hp"] - (p1["wp"] + dado)
-                elif inimigo == 3:
+                  break
+                elif inimigo == 3 and e3["hp"] > 0:
                   e3["hp"]=e3["hp"] - (p1["wp"] + dado)
-                elif inimigo == 4:
+                  break
+                elif inimigo == 4 and e4["hp"] > 0:
                   e4["hp"]=e4["hp"] - (p1["wp"] + dado)
+                  break
               p1["mp"]=p1["mp"]-5
             elif respo.lower() == "n":
               chamar_inimigo()
               while (True):  
                 inimigo=int(input("Qual Inimigo quer atacar: "))
-                if inimigo == 1:
+                if inimigo == 1 and e1["hp"] > 0:
                   dano=p1["wp"] - e1["ap"]
                   if dano > 0:
                     e1["hp"]=e1["hp"] - dano
-                elif inimigo == 2:
+                  break
+                elif inimigo == 2 and e2["hp"] > 0:
                   dano=p1["wp"] - e2["ap"]
                   if dano > 0:
                     e2["hp"]=e2["hp"] - dano
-                elif inimigo == 3:
+                  break
+                elif inimigo == 3 and e3["hp"] > 0:
                   dano=p1["wp"] - e3["ap"]
                   if dano > 0:
                     e3["hp"]=e3["hp"] - dano
-                elif inimigo == 4:
+                  break
+                elif inimigo == 4 and e4["hp"] > 0:
                   dano=p1["wp"] - e4["ap"]
                   if dano > 0:
                     e4["hp"]=e4["hp"] - dano
+                  break
               esco=1
             else:
               print("Introduza novamente. ")
@@ -307,22 +329,22 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
           while (True):
             chamar_inimigo()
             inimigo=int(input("Qual Inimigo quer atacar: "))
-            if inimigo == 1:
+            if inimigo == 1 and e1["hp"] > 0:
                   dano=p1["wp"] - e1["ap"]
                   if dano > 0:
                     e1["hp"]=e1["hp"] - dano
                   break
-            elif inimigo == 2:
+            elif inimigo == 2 and e2["hp"] > 0:
                   dano=p1["wp"] - e2["ap"]
                   if dano > 0:
                     e2["hp"]=e2["hp"] - dano
                   break
-            elif inimigo == 3:
+            elif inimigo == 3 and e3["hp"] > 0:
                   dano=p1["wp"] - e3["ap"]
                   if dano > 0:
                     e3["hp"]=e3["hp"] - dano
                   break
-            elif inimigo == 4:
+            elif inimigo == 4 and e4["hp"] > 0:
                   dano=p1["wp"] - e4["ap"]
                   if dano > 0:
                     e4["hp"]=e4["hp"] - dano
@@ -334,10 +356,14 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
           dano=e1["wp"] - p1["ap"]
           if dano > 0:
             p1["hp"]=p1["hp"] - dano
+            print("Orc deu",dano,"de dano ao warrior")
+            time.sleep(3)#Esperar 5 sgundos
         elif p2["hp"] > 0 :
           dano=e1["wp"] - p2["ap"]
           if dano > 0:
             p2["hp"]=p2["hp"] - dano 
+            print("Orc deu",dano,"de dano ao priest")
+            time.sleep(3)#Esperar 5 sgundos
       
 
     if e2["hp"]>0 and e2init == i and (p1["hp"] > 0 or p2["hp"] > 0):
@@ -345,10 +371,14 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
           dano=e2["wp"] - p1["ap"]
           if dano > 0:
             p1["hp"]=p1["hp"] - dano
+            print("Orc deu",dano,"de dano ao warrior")
+            time.sleep(3)#Esperar 5 sgundos
         elif p2["hp"] > 0 :
           dano=e2["wp"] - p2["ap"]
           if dano > 0:
             p2["hp"]=p2["hp"] - dano
+            print("Orc deu",dano,"de dano ao priest")
+            time.sleep(3)#Esperar 5 sgundos
     
     
     if e3["hp"]>0 and e4init == i and (p1["hp"] > 0 or p2["hp"] > 0):
@@ -357,17 +387,25 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
         e3["mp"] = e3["mp"] - 5
         if p1["hp"] > 0 :
           p1["hp"]=p1["hp"] - (dado*2)
+          print("Goblin deu",dado*2,"de dano ao warrior")
+          time.sleep(3)#Esperar 5 sgundos
         elif p2["hp"] > 0 :
           p2["hp"]=p2["hp"] - (dado*2)
+          print("Goblin deu",dado*2,"de dano ao priest")
+          time.sleep(3)#Esperar 5 sgundos
       else:
         if p1["hp"] > 0 :
           dano=e3["wp"] - p1["ap"]
           if dano > 0:
             p1["hp"]=p1["hp"] - dano
+            print("Goblin deu",dano,"de dano ao warrior")
+            time.sleep(3)#Esperar 5 sgundos
         elif p2["hp"] > 0 :
           dano=e3["wp"] - p2["ap"]
           if dano > 0:
             p2["hp"]=p2["hp"] - dano  
+            print("Goblin deu",dano,"de dano ao priest")
+            time.sleep(3)#Esperar 5 sgundos
 
 
     print()
