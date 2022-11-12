@@ -9,7 +9,7 @@ p1 = {
   "hp": 32,
   "mp": 5,
   "ap": 1,
-  "wp": 5,
+  "wp": 50,
   "init": 2
 }
 
@@ -83,7 +83,47 @@ def apagar_ecra(): #Código original do meu colega Ricardo
         #O 'clear' é o código para apagar o terminal no Mac e no linux
         os.system('clear')
 
+def chamar_inimigo():
+  if e1["hp"] > 0:  #Vê se o inimigo 1 tem vida o suficiente para o atacar
+    print("Inimigo 1:")
+    print("|",e1["name"], "|", sep='')  #{Dá print dos stats do inimigo
+    print("---------")
+    print("|Health:",e1["hp"],"\n","|Mana:",e1["mp"],"\n","|Armor:",e1["ap"],"\n","|Damage:",e1["wp"],"\n", sep='')
+  if e2["hp"] > 0:  #Vê se o inimigo 2 tem vida o suficiente para o atacar
+    print("Inimigo 2:")
+    print("|",e2["name"], "|", sep='')  #{Dá print dos stats do inimigo
+    print("---------")
+    print("|Health:",e2["hp"],"\n","|Mana:",e2["mp"],"\n","|Armor:",e2["ap"],"\n","|Damage:",e2["wp"],"\n", sep='')
+  if e3["hp"] > 0:  #Vê se o inimigo 3 tem vida o suficiente para o atacar
+    print("Inimigo 3:")
+    print("|",e3["name"], "|", sep='')  #{Dá print dos stats do inimigo
+    print("---------")
+    print("|Health:",e3["hp"],"\n","|Mana:",e3["mp"],"\n","|Armor:",e3["ap"],"\n","|Damage:",e3["wp"],"\n", sep='')
+  if e4["hp"] > 0:  #Vê se o inimigo 4 tem vida o suficiente para o atacar
+    print("Inimigo 4:")
+    print("|",e4["name"], "|", sep='')  #{Dá print dos stats do inimigo
+    print("---------")
+    print("|Health:",e4["hp"],"\n","|Mana:",e4["mp"],"\n","|Armor:",e4["ap"],"\n","|Damage:",e4["wp"],"\n", sep='')
+
+def chamar_player():
+  print("Os teus personagens:")
+  if p1["hp"] > 0:  #Vê se o warrior tem vida o suficiente para o atacar
+    print("|",p1["name"], "|", sep='')
+    print("---------")  #{Dá print dos stats do warrior
+    print("|Vida:",p1["hp"],"\n","|Energia:",p1["mp"],"\n","|Armadura:",p1["ap"],"\n","|Ataque:",p1["wp"],"\n", sep='')
+
+  if p2["hp"] > 0:  #Vê se o priest tem vida o suficiente para o atacar
+    print("|",p2["name"], "|", sep='')
+    print("---------")  #{Dá print dos stats do priest
+    print("|Vida:",p2["hp"],"\n","|Energia:",p2["mp"],"\n","|Armadura:",p2["ap"],"\n","|Ataque:",p2["wp"],"\n", sep='')
+
+def ataque_pr()
+
+
+
 apagar_ecra()#Limpa o ecrã
+
+
 #Início do jogo
 print("       Bem vindo jogador")
 
@@ -92,14 +132,7 @@ print("Prepara te para derrotares os teus inimigos!")
 time.sleep(5)#Esperar 5 sgundos
 apagar_ecra()#Limpa o ecrã
 
-print("Os teus personagens:")
-print("|",p1["name"], "|", sep='')
-print("---------")
-print("|Vida:",p1["hp"],"\n","|Energia:",p1["mp"],"\n","|Armadura:",p1["ap"],"\n","|Ataque:",p1["wp"],"\n", sep='')
-
-print("|",p2["name"], "|", sep='')
-print("---------")
-print("|Vida:",p2["hp"],"\n","|Energia:",p2["mp"],"\n","|Armadura:",p2["ap"],"\n","|Ataque:",p2["wp"],"\n", sep='')
+chamar_player()
 time.sleep(5)#Esperar 5 sgundos
 apagar_ecra()#Limpa o ecrã
 
@@ -107,8 +140,11 @@ apagar_ecra()#Limpa o ecrã
 
 
 #Começo da batalha
-
+#While que decide o fim do jogo. Quando todos os inimigos ou todos os personagens do jogador morrerem, o loop acaba
 while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp"] > 0 or e4["hp"] > 0):
+  
+  
+  #Lançamento do dado para cada jogador para decidir quem começa
   x = random.randrange(1,21)
   p1init = p1["init"] + x
   x = random.randrange(1,21)
@@ -122,9 +158,14 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
   x = random.randrange(1,21)
   e4init = e4["init"] + x
   
+  #For que faz cada turno, vai de 40 a 0 e quando o Init de um personagem combina com ele, o personagem age
   for i in range(40,-1,-1):
     print(f"{turn}º turno")
-    
+    print()
+
+
+    #Turno do Goblin(inimigo 4)
+    #Se o goblin não estiver morto, nem o inimigo, ele age
     if e4["hp"]>0 and e4init == i and (p1["hp"] > 0 or p2["hp"] > 0):
         if p1["hp"] > 0 :
           dano=e4["wp"] - p1["ap"]
@@ -136,10 +177,11 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
             p2["hp"]=p2["hp"] - dano 
 
 
-    
+    #Turno do Priest
+    #Se o priest não estiver morto, nem o inimigo, ele age
     if p2["hp"]>0 and p2init == i and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp"] > 0 or e4["hp"] > 0):  
         print("É o turno do Priest ")
-        if p2["mp"]>0:
+        if p2["mp"]>0:  #Verifica se o priest tem mana
           while esco == 0:
             respo=input("Quer usar magia?:")
             if respo.lower() == "s":
@@ -151,35 +193,17 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
                 esco=1
               elif magia == 1:
                 dado = random.randrange(1,5)
-                if e1["hp"] > 0:
-                  print("Inimigo 1:")
-                  print("|",e1["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e1["hp"],"\n","|Mana:",e1["mp"],"\n","|Armor:",e1["ap"],"\n","|Damage:",e1["wp"],"\n", sep='')
-                if e2["hp"] > 0:
-                  print("Inimigo 2:")
-                  print("|",e2["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e2["hp"],"\n","|Mana:",e2["mp"],"\n","|Armor:",e2["ap"],"\n","|Damage:",e2["wp"],"\n", sep='')
-                if e3["hp"] > 0:
-                  print("Inimigo 3:")
-                  print("|",e3["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e3["hp"],"\n","|Mana:",e3["mp"],"\n","|Armor:",e3["ap"],"\n","|Damage:",e3["wp"],"\n", sep='')
-                if e4["hp"] > 0:
-                  print("Inimigo 4:")
-                  print("|",e4["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e4["hp"],"\n","|Mana:",e4["mp"],"\n","|Armor:",e4["ap"],"\n","|Damage:",e4["wp"],"\n", sep='')
-                inimigo=int(input("Qual Inimigo quer atacar: "))
-                if inimigo == 1:
-                  e1["hp"]=e1["hp"] - (dado*2)
-                elif inimigo == 2:
-                  e2["hp"]=e2["hp"] - (dado*2)
-                elif inimigo == 3:
-                  e3["hp"]=e3["hp"] - (dado*2)
-                elif inimigo == 4:
-                  e4["hp"]=e4["hp"] - (dado*2)
+                chamar_inimigo()
+                while (True):
+                  inimigo=int(input("Qual Inimigo quer atacar: "))
+                  if inimigo == 1:
+                    e1["hp"]=e1["hp"] - (dado*2)
+                  elif inimigo == 2:
+                    e2["hp"]=e2["hp"] - (dado*2)
+                  elif inimigo == 3:
+                    e3["hp"]=e3["hp"] - (dado*2)
+                  elif inimigo == 4:
+                    e4["hp"]=e4["hp"] - (dado*2)
                 p2["mp"]=p2["mp"]-5
                 esco=1
               else:
@@ -187,86 +211,50 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
                 esco=0
               esco=1
             elif respo.lower() == "n":
-              if e1["hp"] > 0:
-                  print("Inimigo 1:")
-                  print("|",e1["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e1["hp"],"\n","|Mana:",e1["mp"],"\n","|Armor:",e1["ap"],"\n","|Damage:",e1["wp"],"\n", sep='')
-              if e2["hp"] > 0:
-                  print("Inimigo 2:")
-                  print("|",e2["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e2["hp"],"\n","|Mana:",e2["mp"],"\n","|Armor:",e2["ap"],"\n","|Damage:",e2["wp"],"\n", sep='')
-              if e3["hp"] > 0:
-                  print("Inimigo 3:")
-                  print("|",e3["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e3["hp"],"\n","|Mana:",e3["mp"],"\n","|Armor:",e3["ap"],"\n","|Damage:",e3["wp"],"\n", sep='')
-              if e4["hp"] > 0:
-                  print("Inimigo 4:")
-                  print("|",e4["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e4["hp"],"\n","|Mana:",e4["mp"],"\n","|Armor:",e4["ap"],"\n","|Damage:",e4["wp"],"\n", sep='')
-              inimigo=int(input("Qual Inimigo quer atacar: "))
-              if inimigo == 1:
-                dano=p2["wp"] - e1["ap"]
-                if dano > 0:
-                  e1["hp"]=e1["hp"] - dano
-              elif inimigo == 2:
-                dano=p2["wp"] - e2["ap"]
-                if dano > 0:
-                  e2["hp"]=e2["hp"] - dano
-              elif inimigo == 3:
-                dano=p2["wp"] - e3["ap"]
-                if dano > 0:
-                  e3["hp"]=e3["hp"] - dano
-              elif inimigo == 4:
-                dano=p2["wp"] - e4["ap"]
-                if dano > 0:
-                  e4["hp"]=e4["hp"] - dano
+              chamar_inimigo()
+              while (True):
+                inimigo=int(input("Qual Inimigo quer atacar: "))
+                if inimigo == 1:
+                  dano=p2["wp"] - e1["ap"]
+                  if dano > 0:
+                    e1["hp"]=e1["hp"] - dano
+                elif inimigo == 2:
+                  dano=p2["wp"] - e2["ap"]
+                  if dano > 0:
+                    e2["hp"]=e2["hp"] - dano
+                elif inimigo == 3:
+                  dano=p2["wp"] - e3["ap"]
+                  if dano > 0:
+                    e3["hp"]=e3["hp"] - dano
+                elif inimigo == 4:
+                  dano=p2["wp"] - e4["ap"]
+                  if dano > 0:
+                    e4["hp"]=e4["hp"] - dano
               esco=1
             else:
               print("Introduza novamente. ")
               esco=0
           esco=0
         else:
-          if e1["hp"] > 0:
-                print("Inimigo 1:")
-                print("|",e1["name"], "|", sep='')
-                print("---------")
-                print("|Health:",e1["hp"],"\n","|Mana:",e1["mp"],"\n","|Armor:",e1["ap"],"\n","|Damage:",e1["wp"],"\n", sep='')
-          if e2["hp"] > 0:
-                  print("Inimigo 2:")
-                  print("|",e2["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e2["hp"],"\n","|Mana:",e2["mp"],"\n","|Armor:",e2["ap"],"\n","|Damage:",e2["wp"],"\n", sep='')
-          if e3["hp"] > 0:
-                  print("Inimigo 3:")
-                  print("|",e3["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e3["hp"],"\n","|Mana:",e3["mp"],"\n","|Armor:",e3["ap"],"\n","|Damage:",e3["wp"],"\n", sep='')
-          if e4["hp"] > 0:
-                  print("Inimigo 4:")
-                  print("|",e4["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e4["hp"],"\n","|Mana:",e4["mp"],"\n","|Armor:",e4["ap"],"\n","|Damage:",e4["wp"],"\n", sep='')
-          inimigo=int(input("Qual Inimigo quer atacar: "))
-          if inimigo == 1:
-                dano=p2["wp"] - e1["ap"]
-                if dano > 0:
-                  e1["hp"]=e1["hp"] - dano
-          elif inimigo == 2:
-                dano=p2["wp"] - e2["ap"]
-                if dano > 0:
-                  e2["hp"]=e2["hp"] - dano
-          elif inimigo == 3:
-                dano=p2["wp"] - e3["ap"]
-                if dano > 0:
-                  e3["hp"]=e3["hp"] - dano
-          elif inimigo == 4:
-                dano=p2["wp"] - e4["ap"]
-                if dano > 0:
-                  e4["hp"]=e4["hp"] - dano
+          chamar_inimigo()
+          while (True):
+            inimigo=int(input("Qual Inimigo quer atacar: "))
+            if inimigo == 1:
+                  dano=p2["wp"] - e1["ap"]
+                  if dano > 0:
+                    e1["hp"]=e1["hp"] - dano
+            elif inimigo == 2:
+                  dano=p2["wp"] - e2["ap"]
+                  if dano > 0:
+                    e2["hp"]=e2["hp"] - dano
+            elif inimigo == 3:
+                  dano=p2["wp"] - e3["ap"]
+                  if dano > 0:
+                    e3["hp"]=e3["hp"] - dano
+            elif inimigo == 4:
+                  dano=p2["wp"] - e4["ap"]
+                  if dano > 0:
+                    e4["hp"]=e4["hp"] - dano
           
     
 
@@ -278,117 +266,67 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
             if respo.lower() == "s":
               esco = 1
               dado = random.randrange(1,5)
-              if e1["hp"] > 0:
-                  print("Inimigo 1:")
-                  print("|",e1["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e1["hp"],"\n","|Mana:",e1["mp"],"\n","|Armor:",e1["ap"],"\n","|Damage:",e1["wp"],"\n", sep='')
-              if e2["hp"] > 0:
-                  print("Inimigo 2:")
-                  print("|",e2["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e2["hp"],"\n","|Mana:",e2["mp"],"\n","|Armor:",e2["ap"],"\n","|Damage:",e2["wp"],"\n", sep='')
-              if e3["hp"] > 0:
-                  print("Inimigo 3:")
-                  print("|",e3["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e3["hp"],"\n","|Mana:",e3["mp"],"\n","|Armor:",e3["ap"],"\n","|Damage:",e3["wp"],"\n", sep='')
-              if e4["hp"] > 0:
-                  print("Inimigo 4:")
-                  print("|",e4["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e4["hp"],"\n","|Mana:",e4["mp"],"\n","|Armor:",e4["ap"],"\n","|Damage:",e4["wp"],"\n", sep='')
-              inimigo=int(input("Qual Inimigo quer atacar: "))
-              if inimigo == 1:
-                e1["hp"]=e1["hp"] - (p1["wp"] + dado)
-              elif inimigo == 2:
-                e2["hp"]=e2["hp"] - (p1["wp"] + dado)
-              elif inimigo == 3:
-                e3["hp"]=e3["hp"] - (p1["wp"] + dado)
-              elif inimigo == 4:
-                e4["hp"]=e4["hp"] - (p1["wp"] + dado)
+              chamar_inimigo()
+              while (True):
+                inimigo=int(input("Qual Inimigo quer atacar: "))
+                if inimigo == 1:
+                  e1["hp"]=e1["hp"] - (p1["wp"] + dado)
+                elif inimigo == 2:
+                  e2["hp"]=e2["hp"] - (p1["wp"] + dado)
+                elif inimigo == 3:
+                  e3["hp"]=e3["hp"] - (p1["wp"] + dado)
+                elif inimigo == 4:
+                  e4["hp"]=e4["hp"] - (p1["wp"] + dado)
               p1["mp"]=p1["mp"]-5
             elif respo.lower() == "n":
-              if e1["hp"] > 0:
-                  print("Inimigo 1:")
-                  print("|",e1["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e1["hp"],"\n","|Mana:",e1["mp"],"\n","|Armor:",e1["ap"],"\n","|Damage:",e1["wp"],"\n", sep='')
-              if e2["hp"] > 0:
-                  print("Inimigo 2:")
-                  print("|",e2["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e2["hp"],"\n","|Mana:",e2["mp"],"\n","|Armor:",e2["ap"],"\n","|Damage:",e2["wp"],"\n", sep='')
-              if e3["hp"] > 0:
-                  print("Inimigo 3:")
-                  print("|",e3["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e3["hp"],"\n","|Mana:",e3["mp"],"\n","|Armor:",e3["ap"],"\n","|Damage:",e3["wp"],"\n", sep='')
-              if e4["hp"] > 0:
-                  print("Inimigo 4:")
-                  print("|",e4["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e4["hp"],"\n","|Mana:",e4["mp"],"\n","|Armor:",e4["ap"],"\n","|Damage:",e4["wp"],"\n", sep='')
-              inimigo=int(input("Qual Inimigo quer atacar: "))
-              if inimigo == 1:
-                dano=p1["wp"] - e1["ap"]
-                if dano > 0:
-                  e1["hp"]=e1["hp"] - dano
-              elif inimigo == 2:
-                dano=p1["wp"] - e2["ap"]
-                if dano > 0:
-                  e2["hp"]=e2["hp"] - dano
-              elif inimigo == 3:
-                dano=p1["wp"] - e3["ap"]
-                if dano > 0:
-                  e3["hp"]=e3["hp"] - dano
-              elif inimigo == 4:
-                dano=p1["wp"] - e4["ap"]
-                if dano > 0:
-                  e4["hp"]=e4["hp"] - dano
+              chamar_inimigo()
+              while (True):  
+                inimigo=int(input("Qual Inimigo quer atacar: "))
+                if inimigo == 1:
+                  dano=p1["wp"] - e1["ap"]
+                  if dano > 0:
+                    e1["hp"]=e1["hp"] - dano
+                elif inimigo == 2:
+                  dano=p1["wp"] - e2["ap"]
+                  if dano > 0:
+                    e2["hp"]=e2["hp"] - dano
+                elif inimigo == 3:
+                  dano=p1["wp"] - e3["ap"]
+                  if dano > 0:
+                    e3["hp"]=e3["hp"] - dano
+                elif inimigo == 4:
+                  dano=p1["wp"] - e4["ap"]
+                  if dano > 0:
+                    e4["hp"]=e4["hp"] - dano
               esco=1
             else:
               print("Introduza novamente. ")
               esco=0
           esco=0
         else:
-          if e1["hp"] > 0:
-                print("Inimigo 1:")
-                print("|",e1["name"], "|", sep='')
-                print("---------")
-                print("|Health:",e1["hp"],"\n","|Mana:",e1["mp"],"\n","|Armor:",e1["ap"],"\n","|Damage:",e1["wp"],"\n", sep='')
-          if e2["hp"] > 0:
-                  print("Inimigo 2:")
-                  print("|",e2["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e2["hp"],"\n","|Mana:",e2["mp"],"\n","|Armor:",e2["ap"],"\n","|Damage:",e2["wp"],"\n", sep='')
-          if e3["hp"] > 0:
-                  print("Inimigo 3:")
-                  print("|",e3["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e3["hp"],"\n","|Mana:",e3["mp"],"\n","|Armor:",e3["ap"],"\n","|Damage:",e3["wp"],"\n", sep='')
-          if e4["hp"] > 0:
-                  print("Inimigo 4:")
-                  print("|",e4["name"], "|", sep='')
-                  print("---------")
-                  print("|Health:",e4["hp"],"\n","|Mana:",e4["mp"],"\n","|Armor:",e4["ap"],"\n","|Damage:",e4["wp"],"\n", sep='')
-          inimigo=int(input("Qual Inimigo quer atacar: "))
-          if inimigo == 1:
-                dano=p1["wp"] - e1["ap"]
-                if dano > 0:
-                  e1["hp"]=e1["hp"] - dano
-          elif inimigo == 2:
-                dano=p1["wp"] - e2["ap"]
-                if dano > 0:
-                  e2["hp"]=e2["hp"] - dano
-          elif inimigo == 3:
-                dano=p1["wp"] - e3["ap"]
-                if dano > 0:
-                  e3["hp"]=e3["hp"] - dano
-          elif inimigo == 4:
-                dano=p1["wp"] - e4["ap"]
-                if dano > 0:
-                  e4["hp"]=e4["hp"] - dano
+          while (True):
+            chamar_inimigo()
+            inimigo=int(input("Qual Inimigo quer atacar: "))
+            if inimigo == 1:
+                  dano=p1["wp"] - e1["ap"]
+                  if dano > 0:
+                    e1["hp"]=e1["hp"] - dano
+                  break
+            elif inimigo == 2:
+                  dano=p1["wp"] - e2["ap"]
+                  if dano > 0:
+                    e2["hp"]=e2["hp"] - dano
+                  break
+            elif inimigo == 3:
+                  dano=p1["wp"] - e3["ap"]
+                  if dano > 0:
+                    e3["hp"]=e3["hp"] - dano
+                  break
+            elif inimigo == 4:
+                  dano=p1["wp"] - e4["ap"]
+                  if dano > 0:
+                    e4["hp"]=e4["hp"] - dano
+                  break
     
 
     if e1["hp"]>0 and e1init == i and (p1["hp"] > 0 or p2["hp"] > 0):
@@ -431,28 +369,18 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
           if dano > 0:
             p2["hp"]=p2["hp"] - dano  
 
-    print()
-    print()
-    print("Your characters:")
-    print("|",p1["name"], "|", sep='')
-    print("---------")
-    print("|Health:",p1["hp"],"\n","|Mana:",p1["mp"],"\n","|Armor:",p1["ap"],"\n","|Damage:",p1["wp"],"\n", sep='')
 
-    print("|",p2["name"], "|", sep='')
-    print("---------")
-    print("|Health:",p2["hp"],"\n","|Mana:",p2["mp"],"\n","|Armor:",p2["ap"],"\n","|Damage:",p2["wp"],"\n", sep='')
+    print()
+    chamar_player()
     time.sleep(0.9)
     apagar_ecra()#Limpa o ecrã
   turn = turn + 1
 
 
 #Fim do jogo/vencedor
-
 if e1["hp"] > 0 and e2["hp"] > 0 and e3["hp"] > 0 and e4["hp"] > 0:
   apagar_ecra()#Limpa o ecrã
-  print("O jogador ganhou!  :)")
+  print("O jogador perdeu!  :(")
 else:
   apagar_ecra()#Limpa o ecrã
-  print("O jogador perdeu!  :(")
-print(p1)
-print(p2)
+  print("O jogador ganhou!  :)")
