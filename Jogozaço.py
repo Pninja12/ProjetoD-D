@@ -188,7 +188,7 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
             respo=input("Quer usar magia?:")
             if respo.lower() == "s":
               magia=int(input("Dar dano(1) ou Curar(2):"))
-              if magia == 2:
+              if magia == 2 and p1["hp"] > 0:
                 dado = random.randrange(1,7)
                 p1["hp"]=p1["hp"] + (dado + p2["wp"])
                 p2["mp"]=p2["mp"]-3 
@@ -381,30 +381,30 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
             time.sleep(3)#Esperar 5 sgundos
     
     
-    if e3["hp"]>0 and e4init == i and (p1["hp"] > 0 or p2["hp"] > 0):
+    if e3["hp"]>0 and e3init == i and (p1["hp"] > 0 or p2["hp"] > 0):
       if e3["mp"] > 0:
         dado = random.randrange(1,5)
         e3["mp"] = e3["mp"] - 5
         if p1["hp"] > 0 :
           p1["hp"]=p1["hp"] - (dado*2)
-          print("Goblin deu",dado*2,"de dano ao warrior")
+          print("Orc Mage deu",dado*2,"de dano ao warrior")
           time.sleep(3)#Esperar 5 sgundos
         elif p2["hp"] > 0 :
           p2["hp"]=p2["hp"] - (dado*2)
-          print("Goblin deu",dado*2,"de dano ao priest")
+          print("Orc Mage deu",dado*2,"de dano ao priest")
           time.sleep(3)#Esperar 5 sgundos
       else:
         if p1["hp"] > 0 :
           dano=e3["wp"] - p1["ap"]
           if dano > 0:
             p1["hp"]=p1["hp"] - dano
-            print("Goblin deu",dano,"de dano ao warrior")
+            print("Orc Mage deu",dano,"de dano ao warrior")
             time.sleep(3)#Esperar 5 sgundos
         elif p2["hp"] > 0 :
           dano=e3["wp"] - p2["ap"]
           if dano > 0:
             p2["hp"]=p2["hp"] - dano  
-            print("Goblin deu",dano,"de dano ao priest")
+            print("Orc Mage deu",dano,"de dano ao priest")
             time.sleep(3)#Esperar 5 sgundos
 
 
