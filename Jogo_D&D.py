@@ -56,23 +56,25 @@ e4 = {
   "wp": 3,
   "init": 7
 }
-x=0
-respo="a"
-esco=0
-over = 0
-dado=0
-magia=0
-inimigo=0
-dano=0
-morto=0
-p1init = 0
-p2init = 0
-e1init = 0
-e2init = 0
-e3init = 0
-e4init = 0
-turn = 1
 
+
+# Variáveis
+respo="a"  #Foi usado para respostas em str
+esco=0  #Foi usado para respostas em int
+dado=0  #Foi usado como dado
+magia=0  #Foi usado para respostas onde involve o assuntos de magia
+inimigo=0  #Foi usado para respostas onde involve o inimigo
+dano=0  #Foi usado para medir quanto de dano recebe algum personagem
+p1init = 0  #Foi usado para não alterar o Init oficial do Warrior
+p2init = 0  #Foi usado para não alterar o Init oficial do Priest
+e1init = 0  #Foi usado para não alterar o Init oficial do Orc
+e2init = 0  #Foi usado para não alterar o Init oficial do Orc
+e3init = 0  #Foi usado para não alterar o Init oficial do Orc Mage
+e4init = 0  #Foi usado para não alterar o Init oficial do Goblin
+turn = 1  #Foi usado para ir mostrando os turnos
+
+
+#Funções
 def apagar_ecra(): #Código original do meu colega Ricardo 
  
     #O OS do windows é 'nt'
@@ -143,18 +145,18 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
   
   
   #Lançamento do dado para cada jogador para decidir quem começa
-  x = random.randrange(1,21)
-  p1init = p1["init"] + x
-  x = random.randrange(1,21)
-  p2init = p2["init"] + x
-  x = random.randrange(1,21)
-  e1init = e1["init"] + x
-  x = random.randrange(1,21)
-  e2init = e2["init"] + x
-  x = random.randrange(1,21)
-  e3init = e3["init"] + x
-  x = random.randrange(1,21)
-  e4init = e4["init"] + x
+  dado = random.randrange(1,21)
+  p1init = p1["init"] + dado
+  dado = random.randrange(1,21)
+  p2init = p2["init"] + dado
+  dado = random.randrange(1,21)
+  e1init = e1["init"] + dado
+  dado = random.randrange(1,21)
+  e2init = e2["init"] + dado
+  dado = random.randrange(1,21)
+  e3init = e3["init"] + dado
+  dado = random.randrange(1,21)
+  e4init = e4["init"] + dado
   
   #For que faz cada turno, vai de 40 a 0 e quando o Init de um personagem combina com ele, o personagem age
   for i in range(40,-1,-1):
@@ -188,7 +190,7 @@ while (p1["hp"] > 0 or p2["hp"] > 0) and (e1["hp"] > 0 or e2["hp"] > 0 or e3["hp
             respo=input("Quer usar magia?:")
             if respo.lower() == "s":
               magia=int(input("Dar dano(1) ou Curar(2):"))
-              if magia == 2 and p1["hp"] > 0:
+              if magia == 2 and p1["hp"] > 0: #Verifica se o Warrior não está morto
                 dado = random.randrange(1,7)
                 p1["hp"]=p1["hp"] + (dado + p2["wp"])
                 p2["mp"]=p2["mp"]-3 
